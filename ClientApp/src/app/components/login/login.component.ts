@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authServiceService.login(this.user).catch(e => {
+    console.log('Sending User', this.user);
+    this.authServiceService.login(this.user).then((res) => {
+      localStorage.setItem('token', res.token);
+    }).catch(e => {
       console.log('Error ', e);
     });
   }
