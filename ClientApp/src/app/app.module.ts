@@ -8,12 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SpecialComponent } from './components/special/special.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { AuthServiceService } from './services/auth-service.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { HomeComponent } from './components/home/home.component';
 
 
 // importing Routes
 const appRoutes: Routes = [
+  {path: '/', component: HomeComponent },
   {path: 'login', component: LoginComponent },
 
   {path: 'special', component: SpecialComponent, canActivate: [AuthGuard]}
@@ -23,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SpecialComponent
+    SpecialComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,12 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthServiceService, AuthGuard],
+  providers: [AuthServiceService, AuthGuard,
+  {
+     provide: HTTP_INTERCEPTORS,
+     useClass:  TokenInterceptorService,
+     multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
