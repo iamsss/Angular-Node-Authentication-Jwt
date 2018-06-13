@@ -10,12 +10,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./special.component.css']
 })
 export class SpecialComponent implements OnInit {
-
+  validate = false;
   constructor(private specialService: SpeciaService, private router: Router) { }
 
   ngOnInit() {
     this.specialService.getSpecial().subscribe(
-      res => console.log(res),
+      res => this.validate = true,
       err => {
           if (err.status === 401) {
             this.router.navigate(['/login']);
