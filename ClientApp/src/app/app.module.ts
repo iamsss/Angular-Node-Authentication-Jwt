@@ -1,3 +1,4 @@
+import { AuthGuard } from './gaurds/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,7 +14,9 @@ import { AuthServiceService } from './services/auth-service.service';
 
 // importing Routes
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent }
+  {path: 'login', component: LoginComponent },
+
+  {path: 'special', component: SpecialComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({
@@ -28,7 +31,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthServiceService],
+  providers: [AuthServiceService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
