@@ -12,11 +12,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { AuthServiceService } from './services/auth-service.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { HomeComponent } from './components/home/home.component';
+import { SpeciaService } from './services/specia.service';
 
 
 // importing Routes
 const appRoutes: Routes = [
-  {path: '/', component: HomeComponent },
+  {path: '', component: HomeComponent },
   {path: 'login', component: LoginComponent },
 
   {path: 'special', component: SpecialComponent, canActivate: [AuthGuard]}
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthServiceService, AuthGuard,
+  providers: [AuthServiceService, AuthGuard, SpeciaService,
   {
      provide: HTTP_INTERCEPTORS,
      useClass:  TokenInterceptorService,

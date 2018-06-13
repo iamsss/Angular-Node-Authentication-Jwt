@@ -26,6 +26,10 @@ app.post('/users',(req,res) => {
     }
  });
 
+ app.get('/special',authenticate,(req,res) => {
+    res.send();
+ });
+
 
  app.post('/users/login',(req,res) => {
     var body = _.pick(req.body,['email','password']);
